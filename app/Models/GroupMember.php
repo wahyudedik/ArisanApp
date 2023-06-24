@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GroupChat extends Model
+class GroupMember extends Model
 {
     use HasFactory;
 
-    protected $table = 'group_chats';
+    protected $table = 'group_members';
 
     public function user()
     {
