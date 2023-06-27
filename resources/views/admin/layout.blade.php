@@ -44,6 +44,7 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="">Profile</a>
                                         <a class="dropdown-item" href="">Pembayaran</a>
+                                        <a class="dropdown-item" href="">Pengiriman</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                                     </div>

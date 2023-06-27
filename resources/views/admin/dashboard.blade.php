@@ -7,25 +7,54 @@
                 <div class="card-header">
                     <h3 class="card-title">Groups Arisan</h3>
                     <div class="card-tools ml-auto">
-                        <a href="#" class="btn btn-tool">
+                        <a href="{{ route('admin.groupsAdd') }}" class="btn btn-tool">
                             <i class="fas fa-plus fa-lg"></i>
                         </a>
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
                     <ul class="list-group">
-                        <li class="list-group-item" style="border: none;">
-                            <div class="d-flex justify-content-between align-items-center"
-                                style="border-bottom: 1px solid rgb(139, 139, 139);">
-                                <div>
-                                    <h5 class="mb-0">Group Chat 1</h5>
-                                    <small>Last Message: Hello everyone!</small>
+                        @foreach ($groups as $group)
+                            <li class="list-group-item" style="border: none;">
+                                <div class="d-flex justify-content-between align-items-center"
+                                    style="border-bottom: 1px solid rgb(139, 139, 139);">
+                                    <div>
+                                        <a href="{{ route('groups.chat') }}"><h5 class="mb-0">{{ $group->name }}</h5></a>
+                                        <small>Last Message: Hello everyone!</small>
+                                    </div>
+                                    <span class="badge bg-primary">3</span>
+
                                 </div>
-                                <span class="badge bg-primary">3</span>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nama Grup</th>
+                                <th>Admin</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($groups as $group)
+                                <tr>
+                                    <td>{{ $group->name }}</td>
+                                    <td>{{ $group->admin->name }}</td>
+                                    <td>{{ $group->start_date }}</td>
+                                    <td>
+                                        <!-- Tambahkan tombol aksi sesuai kebutuhan (misalnya, tautan ke halaman detail grup) -->
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.card-body -->
             </div>

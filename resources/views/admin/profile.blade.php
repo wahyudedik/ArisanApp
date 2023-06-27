@@ -1,4 +1,4 @@
-@extends('member.layout')
+@extends('admin.layout')
 @section('content')
     <div class="row">
         <div class="col-md-3">
@@ -15,7 +15,7 @@
 
                     <p class="text-muted text-center">{{ '@' . Auth::user()->name }}</p>
 
-                    <form method="POST" action="{{ route('member.update.photo', $member->id) }}"
+                    <form method="POST" action="{{ route('member.updateProfile', $member->id) }}"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -86,7 +86,7 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="active tab-pane" id="settings">
-                            <form class="form-horizontal" action="{{ route('member.update.profile', $member->id) }}" method="POST">
+                            <form class="form-horizontal" action="{{ route('member.update', $member->id) }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <div class="form-group row">
@@ -137,7 +137,7 @@
             </div>
             <!-- /.card -->
 
-            {{-- @if ($member->status === true)
+            @if ($member->status === true)
                 <div class="card card-success">
                     <div class="card-body">Akun Sudah Aktif</div>
                 </div>
@@ -145,7 +145,7 @@
                 <div class="card card-danger">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>Akun Belum Aktif</div>
-                        <div class="ml-auto">
+                        {{-- <div class="ml-auto">
                             <button class="btn btn-primary" type="submit" id="myButton">Aktifkan</button>
                             <script>
                                 const button = document.getElementById("myButton");
@@ -168,10 +168,11 @@
                                     }
                                 });
                             </script>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
-            @endif --}}
+            @endif
+
         </div>
         <!-- /.col -->
     </div>

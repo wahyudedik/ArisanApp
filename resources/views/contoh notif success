@@ -1,0 +1,42 @@
+@if (session('success'))
+<div class="alert alert-success">{{ session("success") }}</div>
+@endif
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Pesan error
+    @if ($errors -> any())
+        $(document).ready(function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ $errors->first() }}'
+            });
+        });
+    @endif
+
+    // Pesan sukses
+    @if (session('success'))
+        $(document).ready(function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}'
+                });
+        });
+    @endif
+
+    $('form').submit(function () {
+        Swal.fire({
+            title: 'Loading...',
+            allowOutsideClick: false,
+            showConfirmButton: false, // Remove the OK button
+            onBeforeOpen: () => {
+                Swal.showLoading();
+                Swal.getContent().querySelector('p').innerHTML =
+                    '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>';
+            }
+        });
+    });
+</script>

@@ -3,10 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Group;
 use App\Models\Member;
+use App\Models\Winner;
+use App\Models\Payment;
+use App\Models\GroupChat;
+use App\Models\GroupMember;
+use App\Models\GroupRequest;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

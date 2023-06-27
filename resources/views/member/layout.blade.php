@@ -30,7 +30,7 @@
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a href="{{ route('index') }}">
+                            <a href="{{ url('/') }}">
                                 <h1 class="m-0"> Arisan App <small>1.0</small></h1>
                             </a>
                         </div><!-- /.col -->

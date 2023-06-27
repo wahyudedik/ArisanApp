@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Raffle;
+use App\Models\Winner;
+use App\Models\Payment;
+use App\Models\GroupChat;
 use App\Models\GroupMember;
+use App\Models\GroupRequest;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Group extends Model
