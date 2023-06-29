@@ -53,6 +53,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(GroupRequest::class, 'user_id');
     }
+
+    public function memberRequests()
+    {
+        return $this->hasOne(MemberRequest::class, 'user_id');
+    }
     /**
      * The attributes that are mass assignable.
      *

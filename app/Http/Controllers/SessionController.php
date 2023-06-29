@@ -14,10 +14,9 @@ class SessionController extends Controller
     public function role()
     {
         if (Auth::user()->role == 'superadmin') {
-            return view('superadmin/dashboard');
+            return redirect()->route('superadmin.index');
         } elseif (Auth::user()->role == 'admin') {
-            $groups = Group::all();
-            return view('admin/dashboard', compact('groups'));
+            return redirect()->route('admin.index');
         } elseif (Auth::user()->role == 'member') {
             return redirect()->route('member.index');
         }

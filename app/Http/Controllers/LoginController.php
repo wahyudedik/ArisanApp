@@ -34,7 +34,7 @@ class LoginController extends Controller
         $remember = $request->has('remember'); //Check if "Remember Me" checkbox is checked
 
         if (Auth::attempt($infologin, $remember)) {
-            return redirect('/');
+            return redirect()->route('role.index');
         } else {
             return redirect('')->withErrors('Email Atau Password Salah')->withInput();
         }

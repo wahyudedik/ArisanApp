@@ -1,8 +1,8 @@
-@extends('layout')
+@extends('member/layout')
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <!-- DIRECT CHAT PRIMARY -->
             <div class="card card-primary card-outline direct-chat direct-chat-primary">
                 <div class="card-header">
@@ -102,27 +102,27 @@
         </div>
         <!-- /.col -->
         {{-- Anggota --}}
-        {{-- <div class="card card-primary card-outline col-md-4">
-                            <div class="card-header">
-                                <h5 class="card-title m-0">Timeline</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 mb-3">
-                                        <button class="btn btn-primary btn-block">
-                                            <i class="fas fa-user"></i>
-                                            <span>Tentang</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-12 col-md-6 mb-3">
-                                        <button class="btn btn-success btn-block">
-                                            <i class="fas fa-check"></i>
-                                            <span>Tagihan</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+        <div class="card card-primary card-outline col-md-4">
+            <div class="card-header">
+                <h5 class="card-title m-0">Tools</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#about">
+                            <i class="fas fa-tasks"></i>
+                            <span>About</span>
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#payment">
+                            <i class="fas fa-check"></i>
+                            <span>Payment</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- Anggota --}}
     </div>
     <!-- /.row -->
@@ -236,4 +236,103 @@
         </div>
         <!-- /.col -->
     </div>
+
+    {{-- Modal tentang --}}
+    <div class="modal fade" id="about">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Deskripsi Group</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ $groups->description }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal pembayaran --}}
+    <div class="modal fade" id="payment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Payment for {{ $groups->name }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('member.groups.payment', $groups->id) }}"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="group_id" value="{{ $groups->id }}">
+                        <input type="hidden" name="user_id" value="{{ $users->id }}">
+
+                        <div class="form-group">
+                            <label for="payment_method">Payment Method:</label>
+                            <input type="text" class="form-control" id="payment_method" name="payment_method"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah:</label>
+                            <input type="number" step="0.01" class="form-control" id="jumlah" name="jumlah"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gambar">Gambar:</label>
+                            <input type="file"  id="gambar" name="gambar" required>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Pesan error
+        @if ($errors->any())
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ $errors->first() }}'
+                });
+            });
+        @endif
+
+        // Pesan sukses
+        @if (session('success'))
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{{ session('success') }}'
+                });
+            });
+        @endif
+
+        $('form').submit(function() {
+            Swal.fire({
+                title: 'Loading...',
+                allowOutsideClick: false,
+                showConfirmButton: false, // Remove the OK button
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    Swal.getContent().querySelector('p').innerHTML =
+                        '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>';
+                }
+            });
+        });
+    </script>
 @endsection

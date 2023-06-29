@@ -13,6 +13,8 @@ class Payment extends Model
 
     protected $table = 'payments';
 
+    protected $fillable = ['group_id', 'user_id', 'payment_method', 'jumlah', 'gambar'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

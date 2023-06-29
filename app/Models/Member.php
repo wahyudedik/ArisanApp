@@ -15,6 +15,11 @@ class Member extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function memberRequests()
+    {
+        return $this->hasOne(MemberRequest::class, 'member_id');
+    }
+
     protected $table = 'members';
 
     protected $fillable = [
