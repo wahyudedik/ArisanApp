@@ -37,7 +37,7 @@ class RegisterController extends Controller
             $member->user_id = $user->id;
             $member->save();
             // Jika data member belum ada, tampilkan tampilan "Tolong lengkapi data profile dulu"
-            return redirect('/')->with('success', 'Registration successful. Please login.');
+            return redirect('/login')->with('success', 'Registration successful. Please login.');
         }
     }
 }

@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         );
 
-        $infologin = [
+        $infologin = [ 
             'email' => $request->email,
             'password' => $request->password
         ];
@@ -36,7 +36,7 @@ class LoginController extends Controller
         if (Auth::attempt($infologin, $remember)) {
             return redirect()->route('role.index');
         } else {
-            return redirect('')->withErrors('Email Atau Password Salah')->withInput();
+            return redirect('/login')->withErrors('Email Atau Password Salah')->withInput();
         }
     }
 }

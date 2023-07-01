@@ -14,11 +14,11 @@ class SessionController extends Controller
     public function role()
     {
         if (Auth::user()->role == 'superadmin') {
-            return redirect()->route('superadmin.index');
+            return redirect()->route('superadmin.dashboard');
         } elseif (Auth::user()->role == 'admin') {
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.dashboard');
         } elseif (Auth::user()->role == 'member') {
             return redirect()->route('member.index');
         }
-    }    
+    }
 }

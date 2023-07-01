@@ -57,38 +57,50 @@ Route::middleware(['auth'])->group(function () {
     // ===================================================================================================
 
     // route default
-    Route::get('/', [SessionController::class, 'role'])
+    Route::get('/role', [SessionController::class, 'role'])
         ->name('role.index');
 
     // ===================================================================================================
 
     // route superadmin
-    Route::get('/', [SuperAdminController::class, 'index'])
-        ->name('superadmin.index')
-        ->middleware('userAkses:superadmin');
+    Route::prefix('superadmin')->middleware('userAkses:superadmin')->group(function () {
+        Route::get('/dashboard', [SuperAdminController::class, 'index'])
+            ->name('superadmin.dashboard');
+    });
+
 
     // ===================================================================================================
 
     // route admin
-    Route::get('/', [AdminController::class, 'index'])
-        ->name('admin.index')
-        ->middleware('userAkses:admin');
-    // Menampilkan form tambah grup baru
-    Route::get('/groupsadd', [GroupController::class, 'create'])
-        ->name('admin.groupsAdd')
-        ->middleware('userAkses:admin');
-    // Menyimpan data grup baru
-    Route::post('/groupsadd', [GroupController::class, 'store'])
-        ->name('groups.store')
-        ->middleware('userAkses:admin');
-    //group chat link
-    Route::get('/groupchat', [GroupChatController::class, 'index'])
-        ->name('groups.chat')
-        ->middleware('userAkses:admin');
-    //route profile
-    Route::get('/profile', [MemberController::class, 'adminProfile'])
-        ->name('admin.profile')
-        ->middleware('userAkses:admin');
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])
+            ->name('admin.dashboard')
+            ->middleware('userAkses:admin');
+
+        Route::get('/groupsadd', [GroupController::class, 'create'])
+            ->name('admin.groupsAdd')
+            ->middleware('userAkses:admin');
+
+        Route::post('/groupsadd', [GroupController::class, 'store'])
+            ->name('groups.store')
+            ->middleware('userAkses:admin');
+
+        Route::get('/groupchat', [GroupChatController::class, 'index'])
+            ->name('groups.chat')
+            ->middleware('userAkses:admin');
+
+        Route::get('/profile', [AdminController::class, 'profile'])
+            ->name('admin.profile')
+            ->middleware('userAkses:admin');
+
+        Route::put('/profile/{id}/data', [ProfileController::class, 'profileUpdate'])
+            ->name('admin.profile-data-update')
+            ->middleware('userAkses:admin');
+
+        Route::put('/profile/{id}/photo', [ProfileController::class, 'profilePhotoUpdate'])
+            ->name('admin.profile-photo-update')
+            ->middleware('userAkses:admin');
+    });
 
     // ===================================================================================================
 

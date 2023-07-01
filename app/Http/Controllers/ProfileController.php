@@ -34,7 +34,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($member->user_id);
         $user->update($request->only(['name', 'email']));
 
-        return redirect()->route('member.profile')->with('success', 'Profile berhasil diperbarui');
+        return redirect()->back()->with('success', 'Data Profile berhasil diperbarui');
     }
 
     public function profilePhotoUpdate(Request $request, $id)

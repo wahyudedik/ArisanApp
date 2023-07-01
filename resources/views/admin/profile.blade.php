@@ -7,7 +7,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="images/{{ $member->gambar }}"
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/' . $member->gambar) }}"
                             alt="User profile picture">
                     </div>
 
@@ -15,7 +15,7 @@
 
                     <p class="text-muted text-center">{{ '@' . Auth::user()->name }}</p>
 
-                    <form method="POST" action="{{ route('member.updateProfile', $member->id) }}"
+                    <form method="POST" action="{{ route('admin.profile-photo-update', $member->id) }}"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -23,7 +23,7 @@
                             <label for="photo">Edit Foto</label>
                             <input type="file" class="form-control-file" id="photo" name="gambar">
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary btn-block">Simpan</button>
+                        <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
                 <!-- /.card-body -->
@@ -86,7 +86,8 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="active tab-pane" id="settings">
-                            <form class="form-horizontal" action="{{ route('member.update', $member->id) }}" method="POST">
+                            <form class="form-horizontal" action="{{ route('admin.profile-photo-update', $member->user_id) }}"
+                                method="POST">
                                 @method('PUT')
                                 @csrf
                                 <div class="form-group row">
@@ -137,7 +138,7 @@
             </div>
             <!-- /.card -->
 
-            @if ($member->status === true)
+            @if ($member->status === 'true')
                 <div class="card card-success">
                     <div class="card-body">Akun Sudah Aktif</div>
                 </div>
@@ -145,40 +146,29 @@
                 <div class="card card-danger">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>Akun Belum Aktif</div>
-                        {{-- <div class="ml-auto">
-                            <button class="btn btn-primary" type="submit" id="myButton">Aktifkan</button>
-                            <script>
-                                const button = document.getElementById("myButton");
-
-                                // Check if button state is stored in localStorage
-                                const storedState = localStorage.getItem("buttonState");
-                                if (storedState) {
-                                    button.innerText = storedState;
-                                }
-
-                                button.addEventListener("click", function() {
-                                    if (button.innerText === "Aktifkan") {
-                                        button.innerText = "Processing";
-                                        // Send activation request form
-                                        var form = document.getElementById("activationForm");
-                                        form.submit();
-
-                                        // Store button state in localStorage
-                                        localStorage.setItem("buttonState", button.innerText);
-                                    }
-                                });
-                            </script>
-                        </div> --}}
+                        <div class="ml-auto">
+                            @if (!$memberRequest)
+                                <form method="POST" action="{{ route('admin.requests.activate') }}">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ $member->user_id }}">
+                                    <input type="hidden" name="member_id" value="{{ $member->id }}">
+                                    <input type="hidden" name="status" value="false">
+                                    <button class="btn btn-primary" type="submit" id="aktifkan">Aktifkan</button>
+                                </form>
+                            @else
+                                <span class="btn btn-success">Proses Aktivasi</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endif
-
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
+    <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
     <script>
         // Pesan error
         @if ($errors->any())

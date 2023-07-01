@@ -31,7 +31,7 @@ class GroupController extends Controller
         $group->admin_id = auth()->user()->id; // Menggunakan ID pengguna yang sedang login
         $group->save();
 
-        return redirect()->route('index')->with('success', 'Grup berhasil ditambahkan.');
+        return redirect()->route('admin.index')->with('success', 'Grup berhasil ditambahkan.');
     }
 
 

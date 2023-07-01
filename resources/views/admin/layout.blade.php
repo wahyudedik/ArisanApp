@@ -10,15 +10,15 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Toastr -->
-    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -30,7 +30,7 @@
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a href="{{ route('index') }}">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <h1 class="m-0"> Arisan App <small>1.0</small></h1>
                             </a>
                         </div><!-- /.col -->
@@ -42,10 +42,7 @@
                                         {{ auth()->user()->name }}
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="">Profile</a>
-                                        <a class="dropdown-item" href="">Pembayaran</a>
-                                        <a class="dropdown-item" href="">Pengiriman</a>
-                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('admin.profile') }}">Profile</a>
                                         <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                                     </div>
                                 </li>
@@ -73,15 +70,15 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
     <!-- SweetAlert2 -->
-    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
-    <script src="plugins/toastr/toastr.min.js"></script>
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 </body>
 
 </html>
