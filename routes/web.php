@@ -52,7 +52,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     // route logout
-    Route::get('/logout', [LogoutController::class, 'logout']);
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     // ===================================================================================================
 
@@ -66,6 +66,18 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('superadmin')->middleware('userAkses:superadmin')->group(function () {
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('superadmin.dashboard');
+        Route::get('/list-admin', [SuperAdminController::class, 'listAdmin'])
+            ->name('superadmin.list-admin');
+        Route::get('/list-member', [SuperAdminController::class, 'listMember'])
+            ->name('superadmin.list-member');
+        Route::get('/history-groupchat', [SuperAdminController::class, 'historyGroupChat'])
+            ->name('superadmin.history-groupchat');
+        Route::get('/history-pembayaran', [SuperAdminController::class, 'historyPembayaran'])
+            ->name('superadmin.history-pembayaran');
+        Route::get('/history-pengiriman', [SuperAdminController::class, 'historyPengiriman'])
+            ->name('superadmin.history-pengiriman');
+        Route::get('/history-pemenang', [SuperAdminController::class, 'historyPemenang'])
+            ->name('superadmin.history-pemenang');
     });
 
 

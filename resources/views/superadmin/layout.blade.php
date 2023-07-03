@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -37,9 +39,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"
-                        role="button">
-                        <i class="fas fa-th-large"></i>
+                    <a class="nav-link" href="{{ route('logout') }}" role="button">
+                        <i class="fas fa-door-open"></i>
                     </a>
                 </li>
             </ul>
@@ -71,41 +72,71 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.dashboard') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Starter Pages
-                                    <i class="right fas fa-angle-left"></i>
+                                    Dashboard
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ route('superadmin.list-admin') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.list-admin') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
+                                    Daftar Admin
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.list-member') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.list-member') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-alt"></i>
+                                <p>
+                                    Daftar Member
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.history-groupchat') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.history-groupchat') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-comments"></i>
+                                <p>
+                                    History GroupChat
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.history-pembayaran') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.history-pembayaran') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-money-bill"></i>
+                                <p>
+                                    History Pembayaran
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.history-pengiriman') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.history-pengiriman') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-truck"></i>
+                                <p>
+                                    History Pengiriman
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.history-pemenang') }}"
+                                class="nav-link {{ request()->routeIs('superadmin.history-pemenang') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-trophy"></i>
+                                <p>
+                                    History Pemenang
                                 </p>
                             </a>
                         </li>
                     </ul>
+
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
@@ -119,12 +150,26 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
+                            <h1 class="m-0">Dashboard</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
+                                @if (Route::currentRouteName() === 'superadmin.dashboard')
+                                    <li class="breadcrumb-item active"></li>
+                                @elseif (Route::currentRouteName() === 'superadmin.list-admin')
+                                    <li class="breadcrumb-item active">List Admin</li>
+                                @elseif (Route::currentRouteName() === 'superadmin.list-member')
+                                    <li class="breadcrumb-item active">List Member</li>
+                                @elseif (Route::currentRouteName() === 'superadmin.history-groupchat')
+                                    <li class="breadcrumb-item active">History Group Chat</li>
+                                @elseif (Route::currentRouteName() === 'superadmin.history-pembayaran')
+                                    <li class="breadcrumb-item active">History Pembayaran</li>
+                                @elseif (Route::currentRouteName() === 'superadmin.history-pengiriman')
+                                    <li class="breadcrumb-item active">History Pengiriman</li>
+                                @elseif (Route::currentRouteName() === 'superadmin.history-pemenang')
+                                    <li class="breadcrumb-item active">History Pemenang</li>
+                                @endif
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -140,16 +185,6 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
@@ -157,7 +192,7 @@
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2023 <a href="">ArisanApp</a>.</strong> All rights
             reserved.
         </footer>
     </div>
